@@ -1,3 +1,6 @@
+[![tests](https://github.com/juancalero/ddev-docktopus-ldap/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/juancalero/ddev-docktopus-ldap/actions/workflows/tests.yml)
+[![release](https://img.shields.io/github/v/release/juancalero/ddev-docktopus-ldap)](https://github.com/juancalero/ddev-docktopus-ldap/releases/latest)
+
 # DDEV Docktopus LDAP
 
 [OpenLDAP](https://www.openldap.org/) directory service for DDEV, taken from the [docktopus](https://github.com/juancalero/docktopus) stack, for Drupal sites that authenticate against a corporate directory with the [`ldap`](https://www.drupal.org/project/ldap) module.
