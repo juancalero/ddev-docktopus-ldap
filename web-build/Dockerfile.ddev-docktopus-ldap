@@ -2,6 +2,12 @@
 #ddev-generated
 # Required by the Drupal `ldap` module to authenticate against OpenLDAP.
 # The package is installed for the project's configured PHP version.
-RUN (apt-get update || true) \
-    && apt-get install -y --no-install-recommends "php${DDEV_PHP_VERSION}-ldap" \
+# NOTE: installing a current PHP package may upgrade its siblings from the
+# Sury repository; the dpkg options below keep DDEV's own modified config
+# files (e.g. php-fpm.conf) instead of failing on the conffile prompt.
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+    && apt-get install -y --no-install-recommends \
+       -o Dpkg::Options::="--force-confdef" \
+       -o Dpkg::Options::="--force-confold" \
+       "php${DDEV_PHP_VERSION}-ldap" \
     && rm -rf /var/lib/apt/lists/*
