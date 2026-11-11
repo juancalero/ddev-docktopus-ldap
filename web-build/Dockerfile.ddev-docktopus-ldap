@@ -1,0 +1,7 @@
+# ddev-docktopus-ldap: PHP LDAP extension for the web image.
+#ddev-generated
+# Required by the Drupal `ldap` module to authenticate against OpenLDAP.
+# The package is installed for the project's configured PHP version.
+RUN (apt-get update || true) \
+    && apt-get install -y --no-install-recommends "php${DDEV_PHP_VERSION}-ldap" \
+    && rm -rf /var/lib/apt/lists/*

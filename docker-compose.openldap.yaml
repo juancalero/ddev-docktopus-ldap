@@ -1,0 +1,32 @@
+# OpenLDAP directory service for DDEV (from the docktopus stack).
+#ddev-generated
+#
+# Configuration lives in .ddev/.env.ddev-docktopus-ldap
+# Default bind DN:  cn=admin,dc=miempresa,dc=local  /  password: admin
+# From inside the containers the LDAP host is simply: openldap
+# From the host: ldap://localhost:10389 (port configurable via LDAP_HOST_PORT)
+
+services:
+  openldap:
+    image: osixia/openldap:latest
+    container_name: ddev-${DDEV_SITENAME}-openldap
+    environment:
+      - LDAP_ORGANISATION=${LDAP_ORGANISATION:-MiEmpresa}
+      - LDAP_DOMAIN=${LDAP_DOMAIN:-miempresa.local}
+      - LDAP_ADMIN_PASSWORD=${LDAP_ADMIN_PASSWORD:-admin}
+    ports:
+      # Host-side access for external LDAP clients; the web container
+      # connects directly to openldap:389 and does not need this port.
+      - "${LDAP_HOST_PORT:-10389}:389"
+    volumes:
+      - ldap_data:/var/lib/ldap
+      - ldap_config:/etc/ldap/slapd.d
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
+
+volumes:
+  ldap_data:
+    name: ddev-${DDEV_SITENAME}_ldap_data
+  ldap_config:
+    name: ddev-${DDEV_SITENAME}_ldap_config

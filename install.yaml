@@ -1,0 +1,14 @@
+name: ddev-docktopus-ldap
+
+ddev_version_constraint: '>= v1.24.10'
+
+project_files:
+  - docker-compose.openldap.yaml
+  - .env.ddev-docktopus-ldap
+  - web-build/Dockerfile.ddev-docktopus-ldap
+
+post_install_actions:
+  - |
+    #ddev-description:Notify about the PHP LDAP extension and restart requirement
+    echo "ddev-docktopus-ldap: OpenLDAP service installed."
+    echo "The PHP ldap extension (php\${DDEV_PHP_VERSION}-ldap) will be added to the web image on the next 'ddev restart'."
