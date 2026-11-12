@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env bats
+#!/usr/bin/env bats
 
 setup() {
   set -eu -o pipefail
