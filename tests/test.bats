@@ -29,7 +29,10 @@ setup() {
 
 health_checks() {
   # OpenLDAP must answer a search against the base DN.
-  run ddev exec -s openldap ldapsearch -x -H ldap://localhost -b "dc=miempresa,dc=local" -D "cn=admin,dc=miempresa,dc=local" -w admin "(objectClass=*)" dn
+  # ldapsearch uses the default filter (objectClass=*) when none is given;
+  # passing it explicitly breaks because ddev exec re-runs the command via
+  # `sh -c` and the bare parentheses end up unquoted.
+  run ddev exec -s openldap ldapsearch -x -H ldap://localhost -b "dc=miempresa,dc=local" -D "cn=admin,dc=miempresa,dc=local" -w admin dn
   assert_success
   assert_output --partial "dc=miempresa"
 
